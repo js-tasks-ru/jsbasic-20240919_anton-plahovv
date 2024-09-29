@@ -11,6 +11,17 @@ function print(text) {
  */
 function isValid(name) {
   // ваш код...
+  let rez = false;
+  /*//Checking null
+  rez = Boolean(name);
+  //checking spaces
+  rez = !name.includes(' ');
+  //cheking length
+  rez = name.length >= 4;
+  */
+  rez = Boolean(name) && !name.includes(' ') && (name.length >= 4);
+
+  return rez
 }
 
 function sayHello() {
