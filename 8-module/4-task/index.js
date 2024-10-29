@@ -162,15 +162,6 @@ export default class Cart {
       this.onSubmit = this.onSubmit.bind(this);
       this.onSubmit(event);
     });
-    /*
-    bodyModal.addEventListener('submit', (event) => {
-      event.preventDefault();
-      if (event.target.closest('.cart-form')) {
-        this.onSubmit = this.onSubmit.bind(this);
-        this.onSubmit(event);
-
-      }
-    });*/
   }
 
   onProductUpdate(cartItem) {
@@ -217,28 +208,23 @@ export default class Cart {
       body: formData
     })
       .then(response => {
-        if (!response.ok) {
-          throw new Error('Network response was not ok');
+        // действия
+        if (response.ok) {
+          this.cartItems = [];
+          this.cartIcon.update(this);
+          this.modal.setTitle('Success!');
+          this.modal.setBody(this.renderSuccessOrderForm());
         }
-        return response.json();
+        
+        return response.text();
       }).then(data => {
-        this.cartItems = [];
-        this.cartIcon.update(this);
-        this.modal.setTitle('Success!');
-        this.modal.setBody(this.renderSuccessOrderForm());
+        // не проходили тесты когда действия стояли здесь
+
         console.log('Ответ от сервера:', data);
-      }).catch(error => {
-        console.error('Ошибка:', error.message);
       });
-    /*// для прохождения тестов 
-    this.cartItems = [];
-    this.cartIcon.update(this);
-    this.modal.setTitle('Success!');
-    this.modal.setBody(this.renderSuccessOrderForm());*/
   }
 
   addEventListeners() {
     this.cartIcon.elem.onclick = () => this.renderModal();
   }
 }
-
