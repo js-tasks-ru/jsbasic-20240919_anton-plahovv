@@ -34,6 +34,7 @@ export default class RibbonMenu {
 
       elRibbon.querySelector('.ribbon__inner').appendChild(elCategory);
     }
+    elRibbon.querySelector('.ribbon__item').classList.add('ribbon__item_active');
 
     this._elem = elRibbon;
   }
@@ -48,6 +49,9 @@ export default class RibbonMenu {
       let elA = event.target.closest('.ribbon__item');
       if (elA) {
         event.preventDefault();
+        elA.parentElement.querySelector('.ribbon__item_active').classList.remove('ribbon__item_active');
+        elA.classList.add('ribbon__item_active');
+
         let ce = new CustomEvent("ribbon-select", { 
           detail: elA.dataset.id,
           bubbles: true
